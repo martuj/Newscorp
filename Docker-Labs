@@ -27,6 +27,9 @@ aws s3 ls
 ------------------------------------------------------------------------------------------------------------------
 Task 4: Install Docker using Terraform 
 ------------------------------------------------------------------------------------------------------------------
+mkdir docker-install
+cd docker-install
+
 vi install-docker.tf
 
 resource "null_resource" "install_docker" {
@@ -49,7 +52,7 @@ terraform plan
 terraform apply
 
 # Now test docker
-
+# refresh the page or re-open the terminal
 docker run hello-world
 docker ps -a
 
@@ -58,6 +61,9 @@ Note: perform only if you want to uninstall Docker, else skip the step
 ------------------------------------------------------------------------------------------------------------------
 Task 5: Uninstall Docker using Terraform
 ------------------------------------------------------------------------------------------------------------------
+mkdir uninstall
+cd uninstall
+
 vi uninstall-docker.tf
 
 resource "null_resource" "uninstall_docker" {
