@@ -45,6 +45,33 @@ terraform init
 terraform plan
 terraform apply
 
+Note: perform only if you want to uninstall Docker, else skip the step
+--------------------------------------------------------------------------------------
+Lab 5: Uninstall docker using terraform
+
+vi uninstall-docker.tf
+
+resource "null_resource" "uninstall_docker" {
+  provisioner "local-exec" {
+    command = <<EOT
+      sudo systemctl stop docker || true
+      sudo apt purge -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker.io
+      sudo apt autoremove -y
+      sudo rm -rf /var/lib/docker
+      sudo rm -rf /var/lib/containerd
+      docker --version || echo "Docker successfully removed"
+    EOT
+  }
+}
+
+
+# save the file :wq
+
+terraform init
+terraform plan
+terraofm apply
+
+docker -v
 
 
 
