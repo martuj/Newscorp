@@ -1,18 +1,21 @@
-DOCKER
-==================================================================================================
+================================================================================================================
+DOCKER LABS
+=================================================================================================================
 LAB-1
-==================================================================================================
+=================================================================================================================
 Task 1: Creating an EC2 Instance in AWS and Installing Docker
-
+------------------------------------------------------------------------------------------------------------------
 Task 2: Install Terraform 
+------------------------------------------------------------------------------------------------------------------
 sudo apt update
 sudo apt install wget unzip -y
 wget https://releases.hashicorp.com/terraform/1.15.3/terraform_1.15.3_linux_amd64.zip
 unzip terraform_1.15.3_linux_amd64.zip
 sudo mv terraform /usr/local/bin
 terraform  -v
-
+------------------------------------------------------------------------------------------------------------------
 Task 3:  Create and configure credentials
+------------------------------------------------------------------------------------------------------------------
 sudo apt install python3-venv python3-full
 python3 -m venv myenv
 source myenv/bin/activate
@@ -21,9 +24,9 @@ aws configure
 Add AKID
 Add SAK
 aws s3 ls
-
-Taks 4: Install Docker using Terraform 
-
+------------------------------------------------------------------------------------------------------------------
+Task 4: Install Docker using Terraform 
+------------------------------------------------------------------------------------------------------------------
 vi install-docker.tf
 
 resource "null_resource" "install_docker" {
@@ -50,11 +53,11 @@ terraform apply
 docker run hello-world
 docker ps -a
 
-
+------------------------------------------------------------------------------------------------------------------
 Note: perform only if you want to uninstall Docker, else skip the step
---------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 Task 5: Uninstall Docker using Terraform
-
+------------------------------------------------------------------------------------------------------------------
 vi uninstall-docker.tf
 
 resource "null_resource" "uninstall_docker" {
@@ -78,12 +81,13 @@ terraform plan
 terraofm apply
 
 docker -v
----------------------------------------------------------------
-Lab-2 Perform basic activity 
----------------------------------------------------------------
+
+=================================================================================================================
+Lab-2 Perform basic activity and Docker lifecycle
+=================================================================================================================
 
 Task 1: Basic Commands to run the Container in Interactive mode
-
+------------------------------------------------------------------------------------------------------------------
 docker pull ubuntu
 docker image ls
 docker run -it --name ct1 ubuntu
@@ -104,9 +108,9 @@ docker attach ct2
 exit
 docker ps
 docker ps -a
-
+------------------------------------------------------------------------------------------------------------------
 Task 2: Port Mapping from Docker Host to Container
-
+------------------------------------------------------------------------------------------------------------------
 docker run -d -p 80:80 httpd
 docker ps
 docker exec -it < replace container id/name > /bin/bash
@@ -120,8 +124,9 @@ docker container rm < replace container id/name >
 docker image ls
 docker image rm < replace image id >
 
+------------------------------------------------------------------------------------------------------------------
 Task 3: Docker Lifecycle 
-
+------------------------------------------------------------------------------------------------------------------
 docker pull httpd
 docker image ls
 docker image history httpd
@@ -157,9 +162,11 @@ docker image ls
 docker image rm < replace image id/name > < replace image id/name >
 docker image ls
 docker image ls -a
-
+------------------------------------------------------------------------------------------------------------------
 Task 3: Create an nginx container using Terraform
-
+------------------------------------------------------------------------------------------------------------------
+Note: ref:- https://registry.terraform.io/providers/cybershard/docker/latest/docs/resources/container
+------------------------------------------------------------------------------------------------------------------
 mkdir container1
 cd container1
 
