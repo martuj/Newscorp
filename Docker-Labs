@@ -158,5 +158,46 @@ docker image rm < replace image id/name > < replace image id/name >
 docker image ls
 docker image ls -a
 
+Task 3: Create an nginx container using Terraform
+
+mkdir container1
+cd container1
+
+vi start-container.tf
+
+terraform {
+  required_providers {
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "~> 3.0"
+    }
+  }
+}
+
+provider "docker" {}
+
+resource "docker_image" "nginx" {
+  name = "nginx:latest"
+}
+
+resource "docker_container" "nginx" {
+  name  = "web"
+  image = docker_image.nginx.image_id
+
+  ports {
+    internal = 80
+    external = 8080
+  }
+}
+
+# save the file :wq
+
+terraform init
+terraform plan
+terraform apply
+
+
+
+
 
 
