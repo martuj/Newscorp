@@ -1,4 +1,50 @@
 DOCKER
-==========================================================
-
+==================================================================================================
+TASK-1
+==================================================================================================
 Lab 1: Creating an EC2 Instance in AWS and Installing Docker
+
+Lab 2: Install Terraform 
+sudo apt update
+sudo apt install wget unzip -y
+wget https://releases.hashicorp.com/terraform/1.15.3/terraform_1.15.3_linux_amd64.zip
+unzip terraform_1.15.3_linux_amd64.zip
+sudo mv terraform /usr/local/bin
+terraform  -v
+
+Lab 3:  Create and configure credentials
+sudo apt install python3-venv python3-full
+python3 -m venv myenv
+source myenv/bin/activate
+pip install awscli
+aws configure
+Add AKID
+Add SAK
+aws s3 ls
+
+Lab 4: Install Docker using Terraform 
+
+vi install-docker.tf
+
+resource "null_resource" "install_docker" {
+  provisioner "local-exec" {
+    command = <<EOT
+      sudo apt update -y
+      sudo apt install -y curl
+      curl -fsSL https://get.docker.com | sudo sh
+      sudo usermod -aG docker $USER
+      sudo docker --version
+      sudo docker info
+    EOT
+  }
+}
+
+# save the file :wq
+
+terraform init
+terraform plan
+terraform apply
+
+
+
+
